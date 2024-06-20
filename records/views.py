@@ -308,9 +308,9 @@ def AlumniUpdateViewGate(request,batch_bs,program_code,roll_number,last_name,dob
                 'program_code':program_code,
                 'roll_number':roll_number
             }
-            studnt = get_student_object(kwargs,Student.objects.filter(),dob_bs)
-            if not studnt == request.user.student_user:
-                return HttpResponse('Unauthorized', status=401)
+            # studnt = get_student_object(kwargs,Student.objects.filter(),dob_bs)
+            # if not studnt == request.user.student_user:
+            #     return HttpResponse('Unauthorized', status=401)
         elif request.user.groups.filter(name="Institutes").exists():
             return AlumniUpdateView.as_view()(request,batch_bs=batch_bs,program_code=program_code,
                                               roll_number=roll_number,last_name=last_name,dob_bs=dob_bs,app_name="institutuff")
