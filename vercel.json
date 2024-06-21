@@ -22,7 +22,7 @@
       },
       {
         "src": "/(.*)",
-        "dest": "<projectname>/wsgi.py"
+        "dest": "alumni-tracker/wsgi.py"
       }
     ]
   }
