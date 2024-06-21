@@ -215,4 +215,4 @@ MEDIA_URL = '/media/'
 
 ACCOUNT_FORMS={
         'signup':'records.forms2.Alumni_signup_form'
-    }
+}
