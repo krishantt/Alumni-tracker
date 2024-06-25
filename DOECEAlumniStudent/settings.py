@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import dj_database_url
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -30,7 +31,6 @@ DEBUG = os.environ.get('DEBUG')
 ALLOWED_HOSTS = [
     'manaslu.pcampus.edu.np',
     '127.0.0.1',
-    '.vercel.app',
     '*'
 ]
 
@@ -38,7 +38,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    #'django-extensions',
+    # 'django-extensions',
     'records',
     'institutuff',
     'django.contrib.admin',
@@ -58,7 +58,7 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
-AUTHENTICATION_BACKENDS = [ 
+AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend'
 ]
@@ -67,7 +67,8 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
 
     'allauth.account.middleware.AccountMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -83,8 +84,7 @@ TEMPLATES = [
         'DIRS': [os.path.join(BASE_DIR, 'templates'),
                  os.path.join(BASE_DIR, 'admin_templates'),
                  os.path.join(BASE_DIR, 'allauth_templates'),
-                 ]
-        ,
+                 ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -99,8 +99,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'DOECEAlumniStudent.wsgi.application'
-
-
 
 
 # Password validation
@@ -122,14 +120,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackends'
-#EMAIL_HOST = 'smtp.gmail.com'
-#EMAIL_PORT = 587
-#EMAIL_HOST_USER = "g.jivanphysics@gmail.com"            #email address of sender
-#EMAIL_PASSWORD = ""             #password of sender
-#EMAIL_USE_TLS = True
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackends'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = "g.jivanphysics@gmail.com"            #email address of sender
+# EMAIL_PASSWORD = ""             #password of sender
+# EMAIL_USE_TLS = True
 
-#custom allauth settings
+# custom allauth settings
 
 # Use email as the primary identifier
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
@@ -139,7 +137,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 # Eliminate need to provide username, as it's a very old practice
 ACCOUNT_USERNAME_REQUIRED = False
 #
-#LOG_IN_REDIRECT_URL='/'
+# LOG_IN_REDIRECT_URL='/'
 
 
 # Internationalization
@@ -162,7 +160,8 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800
 
 
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
-DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR +'/'+ 'backup'}     #'/home/bob/DoeceAlumniStudentPortal/dbbackup/'}
+# '/home/bob/DoeceAlumniStudentPortal/dbbackup/'}
+DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR + '/' + 'backup'}
 
 DATABASES = {
     'default': {
@@ -176,6 +175,18 @@ DATABASES = {
 }
 
 
+#RENDER SPECIFIC
+
+DATABASES = {
+    'default': dj_database_url.config(        # Replace this value with your local database's connection string.
+        default='postgresql://postgres:postgres@localhost:5432/mysite',
+        conn_max_age=600
+    )
+}
+
+#END RENDER
+
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -184,35 +195,35 @@ DATABASES = {
 # }
 
 
+# PRODUCTION(Manaslu Server) START
+# Database
+# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# # PRODUCTION(Manaslu Server) START
-# # Database
-# # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-#
 # FORCE_SCRIPT_NAME ='/alumni'
-#
+
 # # Static files (CSS, JavaScript, Images)
 # # https://docs.djangoproject.com/en/2.2/howto/static-files/
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # STATIC_URL = f'{FORCE_SCRIPT_NAME}/static/'
-#
-#
+
+
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # MEDIA_URL = f'{FORCE_SCRIPT_NAME}/media/'
 
 
 # PRODUCTION(Manaslu Server) END
 
-#DEVELOPMENT START
+# DEVELOPMENT START
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
-#DEVELOPMENT END
+# DEVELOPMENT END
 
-ACCOUNT_FORMS={
-        'signup':'records.forms2.Alumni_signup_form'
+ACCOUNT_FORMS = {
+    'signup': 'records.forms2.Alumni_signup_form'
 }
