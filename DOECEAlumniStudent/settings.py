@@ -31,7 +31,7 @@ DEBUG = os.environ.get('DEBUG')
 ALLOWED_HOSTS = [
     'manaslu.pcampus.edu.np',
     '127.0.0.1',
-    '*.onrender.com'
+    '*.onrender.com',
     '*'
 ]
 
