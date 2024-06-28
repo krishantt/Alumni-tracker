@@ -27,6 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG')
+DATABASE_URL = os.environ.get('DATABASE_URL')
 
 ALLOWED_HOSTS = [
     'manaslu.pcampus.edu.np',
@@ -162,7 +163,7 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800
 
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 # '/home/bob/DoeceAlumniStudentPortal/dbbackup/'}
-DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR + '/' + 'backup'}
+# DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR + '/' + 'backup'}
 
 # DATABASES = {
 #     'default': {
@@ -171,21 +172,12 @@ DBBACKUP_STORAGE_OPTIONS = {'location': BASE_DIR + '/' + 'backup'}
 #         'USER': os.environ.get('POSTGRES_USER'),
 #         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
 #         'HOST': 'localhost',
-#         'PORT': 5432,
+#         'PORT': os.environ.get('POSTGRES_PORT'),
 #     }
 # }
 
 
 #RENDER SPECIFIC
-
-DATABASES = {
-    'default': dj_database_url.config(        # Replace this value with your local database's connection string.
-        default=os.environ.get('DATABASE_URL'),
-        conn_max_age=600
-    )
-}
-
-#END RENDER
 
 
 # DATABASES = {
@@ -194,6 +186,17 @@ DATABASES = {
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+DATABASES = {
+    'default': dj_database_url.config(        # Replace this value with your local database's connection string.
+        default=DATABASE_URL,
+        conn_max_age=600
+    )
+}
+
+#END RENDER
+
+
 
 
 # PRODUCTION(Manaslu Server) START
