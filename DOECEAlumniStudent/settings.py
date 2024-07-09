@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'django_filters',
     'crispy_forms',
     'dbbackup',
+    'crispy_bootstrap4',
 ]
 
 SITE_ID = 1
@@ -179,22 +180,34 @@ DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 #RENDER SPECIFIC
 
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+if not DEBUG:
+    DATABASES = {
+        'default': dj_database_url.config(        # Replace this value with your local database's connection string.
+            default=DATABASE_URL,
+            conn_max_age=600
+        )
+    }
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = os.environ.get('EMAIL_HOST')
+    EMAIL_PORT = os.environ.get('EMAIL_PORT')
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+    #END RENDER
 
-DATABASES = {
-    'default': dj_database_url.config(        # Replace this value with your local database's connection string.
-        default=DATABASE_URL,
-        conn_max_age=600
-    )
-}
 
-#END RENDER
+
+
+
+
 
 
 
