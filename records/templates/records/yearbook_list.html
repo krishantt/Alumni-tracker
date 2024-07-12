@@ -113,10 +113,10 @@
               <div class="container">
                   <dl class="row">{% spaceless %}
                         {% for address in student.has_addresses.all %}{% spaceless %}
-                            {% ifequal address.address_type 'Current' %}
+                            {% if address.address_type == 'Current' %}
                                 <dt class="col-sm-6"><i class="far fa-address-card"></i> Current Address</dt>
                                 <dd class="col-sm-6">{{address.country.name}}</dd>
-                            {% endifequal %}
+                            {% endif %}
                             {% endspaceless %}
                         {% endfor %}
                         {% endspaceless %}
