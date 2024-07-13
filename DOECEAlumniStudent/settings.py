@@ -121,13 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackends'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = "g.jivanphysics@gmail.com"            #email address of sender
-# EMAIL_PASSWORD = ""             #password of sender
-# EMAIL_USE_TLS = True
+
 
 # custom allauth settings
 
@@ -179,20 +173,29 @@ DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 #RENDER SPECIFIC
 
+if DEBUG: #local
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
 
-DATABASES = {
-    'default': dj_database_url.config(        # Replace this value with your local database's connection string.
-        default=DATABASE_URL,
-        conn_max_age=600
-    )
-}
+if not DEBUG: #prod
+    DATABASES = {
+        'default': dj_database_url.config(        # Replace this value with your local database's connection string.
+            default=DATABASE_URL,
+            conn_max_age=600
+        )
+    }
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = os.environ.get('EMAIL_HOST')
+    EMAIL_PORT = os.environ.get('EMAIL_PORT')
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 #END RENDER
 

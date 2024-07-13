@@ -18,7 +18,6 @@ from django.urls import path, re_path, include
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-from django.conf.urls import url
 from records import views as record_views
 
 urlpatterns = [
@@ -28,8 +27,8 @@ urlpatterns = [
     path('', include('institutuff.urls')),
     path('admin/', admin.site.urls),
     re_path(r'^advanced_filters/', include('advanced_filters.urls')),
-    url(r'^accounts/login',record_views.alumni_login),
-    url(r'^accounts/',include('allauth.urls')),
+    re_path(r'^accounts/login',record_views.alumni_login),
+    re_path(r'^accounts/',include('allauth.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

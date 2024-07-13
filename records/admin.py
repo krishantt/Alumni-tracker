@@ -29,7 +29,7 @@ class StudentAdmin(AdminAdvancedFiltersMixin, ExportActionModelAdmin):
     def __init__(self,*args,**kwargs):
         super(StudentAdmin,self).__init__(*args,**kwargs)
         #self.actions = super(StudentAdmin,self).actions
-        self.actions = self.actions + self.added_actions
+        self.actions = self.actions + tuple(self.added_actions)
 
     #def save_model(self, request, obj, form, change):
     #    obj.uploader = request.user
