@@ -15,7 +15,6 @@
   <!-- Material Design for Bootstrap -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.16/css/mdb.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static 'records/main.css' %}">
-  <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
 
 {#    {% if title %}#}
 {#        <title>Job Vacancy And CV Management - {{ title }}</title>#}
@@ -27,39 +26,19 @@
 <header class="site-header" >
 
         <!--Navbar-->
-<style>
-  .link-hover{
-  margin: 5px;
 
-  padding: 10px;
-  color:white;
-  cursor: pointer;
-  font-style: normal;
-  font: Lato;
-  font-size: 20px;
-  }
-
-  .link-hover:hover{
-    color: aquamarine;
-    transition: all 300ms ease-in-out;
-  }
-
-</style>
-
-<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top new-color mb-10"
-style="background: radial-gradient(circle at 14.2% 27.5%, rgba(15, 4, 100) 0%, rgb(128, 161, 238) 90%);"
- id="topheader" >
+<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top" id="topheader" >
 <div class="container">
     <ul class="navbar-nav ml-auto nav-flex-icons float-left" style="margin-right: 10px">
       <li class="nav-item avatar">
-        <a class="nav-link p-0" href="{% url 'record-home' %}">
-          <img src="{% static 'pictures/tu-logos.png' %}" class="rounded-circle z-depth-0" alt="logo" height="55">
+        <a class="nav-link p-0" href="#">
+          <img src="{% static 'pictures/tu-logo.png' %}" class="rounded-circle z-depth-0" alt="logo" height="35">
         </a>
       </li>
     </ul>
 
   <!-- Navbar brand -->
-  <a class="navbar-brand ml-3 float-left" href="{% url 'record-home' %}"> <b>Department of Electronics and Computer Engineering</b><br>Alumni Portal </a>
+  <a class="navbar-brand ml-3 float-left" href="{% url 'record-home' %}"> DOECE Alumni Portal </a>
 
   <!-- Collapse button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
@@ -70,13 +49,13 @@ style="background: radial-gradient(circle at 14.2% 27.5%, rgba(15, 4, 100) 0%, r
   <!-- Collapsible content -->
   <div class="collapse navbar-collapse" id="navbarToggle">
 
-    <ul class="navbar-nav ml-auto" id="link-item">
+          <ul class="navbar-nav ml-auto">
 
-      <li class="nav-item ml-6" id="link">
-
-        <a href="{% url 'record-home' %}" class="link-hover"
-        >View Yearbook<span class="sr-only">(current)</span>
+      <li class="nav-item ml-6">
+        <a class="nav-link" href="{% url 'record-home' %}">View Yearbook<span class="sr-only">(current)</span>
         </a>
+
+
 
       {% if object.full_roll_number %}
               <li class="nav-item dropdown">
@@ -87,30 +66,33 @@ style="background: radial-gradient(circle at 14.2% 27.5%, rgba(15, 4, 100) 0%, r
             <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
               <a class="dropdown-item " href="#">{{object.full_roll_number}}</a>
                 <div role="separator" class="dropdown-divider"></div>
-              <a class="dropdown-item " href="{% url 'student-log-out' %}"><button type="button" class="btn btn-outline-danger waves-effect">Log Out</button></a>
+              <a class="dropdown-item " href="{% url 'record-home' %}"><button type="button" class="btn btn-outline-danger waves-effect">Log Out</button></a>
       {% else %}
           </li><li class="nav-item ml-10">
-            <a href="{% url 'alumni-login' %}" class="link-hover">
-                Login
-              <span class="sr-only">(current)</span>
+            <a class="nav-link nav-item" href="{% url 'alumni-login' %}">Update Info
+              <!--<span class="sr-only">(current)</span>-->
             </a>
           </li>
       {% endif %}
-  </div>
-        </li>
-    </ul>
+            </div>
+          </li>
+          </ul>
     <!-- Links -->
-</div>
+
+  </div>
   <!-- Collapsible content -->
+    </div>
 </nav>
 <!--/.Navbar-->
 
     </header>
-<body>
-    <main role="main" class="container-fluid mt-100" style="font-size:15px;" >
-      <div class="row justify-content-center align-self-center mt-120" style=" margin-top:100px; border-radius: 10px; ">
-        {% block content_left %}{% endblock %}
-        <div class="col-md-8"><!--div class="col-md-auto"></div-->
+<body >
+
+
+    <main role="main" class="container " >
+      <div class="row">
+            {% block content_left %}{% endblock %}
+        <!--div class="col-md-8"--><div class="col-md-auto"></div>
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert alert-{{ message.tags }}">
@@ -118,31 +100,16 @@ style="background: radial-gradient(circle at 14.2% 27.5%, rgba(15, 4, 100) 0%, r
                     </div>
                 {% endfor %}
             {% endif %}
-            {% block content_yearbook %}{% endblock %}
-        </div>
-        {%block content_twoForms%}{%endblock%}
-        <div class="col-md-auto">
-          {% block content_twoForms_L %}{% endblock %}
-        </div>
-        <div class="col-md-auto">
-          {% block content_twoForms_R %}{% endblock %}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col col-md-12 flex">
-          {% block content %}{% endblock %}
+            {% block content %}{% endblock %}
         </div>
       </div>
     <hr>
-    <div style="text-align:center;" class="container" >
-      <div style="display: inline-block; width:120%;position:relative; bottom:0%; left:-10%;
-      font-size:12px; background: radial-gradient(circle at 14.2% 27.5%, rgba(15, 4, 100) 0%, rgb(128, 161, 238) 90%);
-       padding:10px; margin-top:30px;"
-       class="row small">
-          <b style="text-align:center; font-size:15px; color: white;">Developed by:</b><br>
-          <b style="text-align:center; font-size:15px; color: white;">Krishant.Bindu.Arbasu.Ashish</b><br>
-          <b style="text-align:center; font-size:15px; color: white;">BCT 2078</b>
-      </div>
+    <div style="text-align:center;" class="container">
+        <div style="display: inline-block" class="row small">
+        <b style="text-align:center">Developed by:</b><br>
+        Anusandhan Pokhrel, Baibhav Bista, Lumanti Dangol, Mohit Kedia<br>
+        BCT 2073
+        </div>
     </div>
     </main>
 

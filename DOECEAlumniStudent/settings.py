@@ -30,10 +30,7 @@ DEBUG = os.environ.get('DEBUG')
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 ALLOWED_HOSTS = [
-    'manaslu.pcampus.edu.np',
-    '127.0.0.1',
-    '*.onrender.com',
-    '*'
+    '*',
 ]
 
 
@@ -46,9 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    "import_export",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -58,6 +57,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'dbbackup',
 ]
+
+ALLAUTH_UI_THEME = "corporate"
 
 SITE_ID = 1
 AUTHENTICATION_BACKENDS = [
@@ -173,29 +174,27 @@ DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 #RENDER SPECIFIC
 
-# if DEBUG: #local
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         }
-#     }
-#     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-
-# if not DEBUG: #prod
-DATABASES = {
-    'default': dj_database_url.config(        # Replace this value with your local database's connection string.
-        default=DATABASE_URL,
-        conn_max_age=600
-    )
-}
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = os.environ.get('EMAIL_HOST')
-EMAIL_PORT = os.environ.get('EMAIL_PORT')
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+if DEBUG=='True': #local
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    DATABASES = {
+        'default': dj_database_url.config(        # Replace this value with your local database's connection string.
+            default=DATABASE_URL,
+            conn_max_age=600
+        )
+    }
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = os.environ.get('EMAIL_HOST')
+    EMAIL_PORT = os.environ.get('EMAIL_PORT')
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 #END RENDER
 

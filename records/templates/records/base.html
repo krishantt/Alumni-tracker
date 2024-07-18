@@ -15,6 +15,7 @@
   <!-- Material Design for Bootstrap -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.16/css/mdb.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static 'records/main.css' %}">
+  <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
 
 {#    {% if title %}#}
 {#        <title>Job Vacancy And CV Management - {{ title }}</title>#}
@@ -28,12 +29,12 @@
         <!--Navbar-->
 <style>
   .link-hover{
-  margin: 5px; 
+  margin: 5px;
 
-  padding: 10px; 
-  color:white; 
+  padding: 10px;
+  color:white;
   cursor: pointer;
-  font-style: normal; 
+  font-style: normal;
   font: Lato;
   font-size: 20px;
   }
@@ -45,7 +46,7 @@
 
 </style>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top new-color mb-10" 
+<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top new-color mb-10"
 style="background: radial-gradient(circle at 14.2% 27.5%, rgba(15, 4, 100) 0%, rgb(128, 161, 238) 90%);"
  id="topheader" >
 <div class="container">
@@ -72,10 +73,10 @@ style="background: radial-gradient(circle at 14.2% 27.5%, rgba(15, 4, 100) 0%, r
     <ul class="navbar-nav ml-auto" id="link-item">
 
       <li class="nav-item ml-6" id="link">
-        
-        <a href="{% url 'record-home' %}" class="link-hover" 
+
+        <a href="{% url 'record-home' %}" class="link-hover"
         >View Yearbook<span class="sr-only">(current)</span>
-        </a> 
+        </a>
 
       {% if object.full_roll_number %}
               <li class="nav-item dropdown">
@@ -134,9 +135,9 @@ style="background: radial-gradient(circle at 14.2% 27.5%, rgba(15, 4, 100) 0%, r
       </div>
     <hr>
     <div style="text-align:center;" class="container" >
-      <div style="display: inline-block; width:120%;position:relative; bottom:0%; left:-10%; 
+      <div style="display: inline-block; width:120%;position:relative; bottom:0%; left:-10%;
       font-size:12px; background: radial-gradient(circle at 14.2% 27.5%, rgba(15, 4, 100) 0%, rgb(128, 161, 238) 90%);
-       padding:10px; margin-top:30px;" 
+       padding:10px; margin-top:30px;"
        class="row small">
           <b style="text-align:center; font-size:15px; color: white;">Developed by:</b><br>
           <b style="text-align:center; font-size:15px; color: white;">Krishant.Bindu.Arbasu.Ashish</b><br>
