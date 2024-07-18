@@ -55,7 +55,7 @@ def record_home(request):
     context = {
         'form': form,
     }
-    
+
     return render(request, 'records/home.html', context)
 
 
@@ -63,7 +63,7 @@ class YearbookListView(ListView):
     model = Student
     template_name = 'records/yearbook_list.html'
     context_object_name = 'students'
-    
+
     def __init__(self, *args, **kwargs):
         self.filter_form=None
         self.query_display = None
@@ -84,7 +84,7 @@ class YearbookListView(ListView):
             if len(url_get_part[0])>0 and (not url_get_part[0][-1] =='&') :
                 print("hey")
                 url_get_part[0] = url_get_part[0]+'&'
-          
+
         context['current_url_get'] = url_get_part[0]
         #context['filter'] = StudentFilter(self.request.GET, self.queryset)
         return context
@@ -119,9 +119,9 @@ class YearbookListView(ListView):
                 raise Http404("No Alumni matches the given query.")
         else:
             raise Http404("No Alumni matches the given query.")
-        
-        
-        #self.query_display = query_string(self.request.GET) 
+
+
+        #self.query_display = query_string(self.request.GET)
         filter = StudentFilter(self.request.GET, queryset)
         self.filter_form = filter.form
         #print(type(self.filter_form.name))
@@ -150,7 +150,7 @@ def alumni_login(request):
                 if studnt.user_account is not None:
                     #raise ValidationError(studnt.user_account.name)
                     messages.warning(request, f'You have already signed up. You need to log in.')# {studnt.first_name}.')
-                    return redirect(reverse('alumni-login')) 
+                    return redirect(reverse('alumni-login'))
                 else:
                     return allauth_accounts_views.signup(request)
             else:
@@ -196,7 +196,7 @@ def alumni_logged_in(request):
     if not request.user.groups.filter(name="Students").exists():
         logout(request)
         return redirect(reverse('alumni-login'))
-    
+
     studnt = request.user.student_user
     params = [ ]
 
@@ -222,7 +222,7 @@ def alumni_logged_in(request):
     else:
         messages.warning(request, f'No student with given credentials was found')
         return redirect(reverse('alumni-login'))
-    
+
     if params[4] is not None:
         params[4]=params[4].replace('/','')
     else:
@@ -273,7 +273,7 @@ class AlumniDetailView(DetailView):
         elif self.kwargs['program_code'] in msc_programs_list:
             try:
                 master = self.queryset.get(
-                    last_name__iexact=self.kwargs['last_name'],  
+                    last_name__iexact=self.kwargs['last_name'],
                     msc_program__iexact=self.kwargs['program_code'],
                     msc_batch_bs__iexact=self.kwargs['batch_bs'],
                     msc_roll_number__iexact=self.kwargs['roll_number'],
@@ -284,7 +284,7 @@ class AlumniDetailView(DetailView):
         elif self.kwargs['program_code'] in phd_programs_list:
             try:
                 phd = self.queryset.get(
-                    last_name__iexact=self.kwargs['last_name'], 
+                    last_name__iexact=self.kwargs['last_name'],
                     phd_batch_bs__iexact=self.kwargs['batch_bs'],
                     phd_roll_number__iexact=self.kwargs['roll_number'],
                 )
@@ -315,7 +315,7 @@ def AlumniUpdateViewGate(request,batch_bs,program_code,roll_number,last_name,dob
             return AlumniUpdateView.as_view()(request,batch_bs=batch_bs,program_code=program_code,
                                               roll_number=roll_number,last_name=last_name,dob_bs=dob_bs,app_name="institutuff")
             pass
-        else: 
+        else:
             return HttpResponse('Unauthorized Group...', status=401)
     return AlumniUpdateView.as_view()(request,batch_bs=batch_bs,program_code=program_code,
                                       roll_number=roll_number,last_name=last_name,dob_bs=dob_bs,app_name="records")
@@ -394,7 +394,7 @@ def get_student_object(kwargs,queryset=None, dob_bs=None):
         #raise ValidationError(f"ynha chai aayo ni tata... {dob_bs}")
         try:
             bachelor = queryset.get(Q(
-                last_name__iexact=kwargs['last_name'], 
+                last_name__iexact=kwargs['last_name'],
                 be_program__iexact=kwargs['program_code'],
                 be_batch_bs__iexact=kwargs['batch_bs'],
                 be_roll_number__iexact=kwargs['roll_number'],
@@ -413,7 +413,7 @@ def get_student_object(kwargs,queryset=None, dob_bs=None):
     elif kwargs['program_code'] in msc_programs_list:
         try:
             master = queryset.get( Q(
-                last_name__iexact=kwargs['last_name'], 
+                last_name__iexact=kwargs['last_name'],
                 msc_program__iexact=kwargs['program_code'],
                 msc_batch_bs__iexact=kwargs['batch_bs'],
                 msc_roll_number__iexact=kwargs['roll_number'],
@@ -431,7 +431,7 @@ def get_student_object(kwargs,queryset=None, dob_bs=None):
     elif kwargs['program_code'] in phd_programs_list:
         try:
             phd = queryset.get( Q(
-                last_name__iexact=kwargs['last_name'], 
+                last_name__iexact=kwargs['last_name'],
                 phd_batch_bs__iexact=kwargs['batch_bs'],
                 phd_roll_number__iexact=kwargs['roll_number'],
                 dob_bs__exact=dob_bs,
@@ -446,9 +446,7 @@ def get_student_object(kwargs,queryset=None, dob_bs=None):
             raise Http404("No Alumni matches the given query.")
         # if self.get_object().username is not None:
         #     messages.warning(request, f'You need to login with your email and password.')
-        #     return redirect(reverse('alumni-login')) 
+        #     return redirect(reverse('alumni-login'))
     else:
         raise Http404("No Alumni matches the given query.")
     return ret_object
-
-   
