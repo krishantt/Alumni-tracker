@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # 'django-extensions',
     'records',
     'institutuff',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
@@ -230,4 +231,65 @@ MEDIA_URL = '/media/'
 
 ACCOUNT_FORMS = {
     'signup': 'records.forms2.Alumni_signup_form'
+}
+
+
+JAZZMIN_SETTINGS = {
+    "site_title": "DOECE Alumni Tracker Admin",
+    "site_header": "DOECE Alumni Tracker Admin",
+    "site_brand": "Alumni Tracker",
+    "site_logo": "pictures/tu-logos.png",
+    "login_logo": None,
+    "site_logo_classes": "",
+    "welcome_sign": "Welcome to the Alumni Portal",
+    "copyright": "DOECE, IOE Pulchowk Campus",
+
+    "search_model": [ "records.student"],
+
+    "user_avatar": None,
+    "show_sidebar": True,
+
+    "navigation_expanded": True,
+
+    "hide_apps": [],
+
+    "hide_models": [],
+
+    # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
+    "order_with_respect_to": ["records", "advanced_filters", "account", "auth", "institutuff"],
+
+    # Custom links to append to app groups, keyed on app name
+    "custom_links": {
+        "books": [{
+            "name": "Make Messages",
+            "url": "make_messages",
+            "icon": "fas fa-comments",
+            "permissions": ["books.view_book"]
+        }]
+    },
+
+    # Custom icons for side menu apps/models See https://fontawesome.com/icons?d=gallery&m=free&v=5.0.0,5.0.1,5.0.10,5.0.11,5.0.12,5.0.13,5.0.2,5.0.3,5.0.4,5.0.5,5.0.6,5.0.7,5.0.8,5.0.9,5.1.0,5.1.1,5.2.0,5.3.0,5.3.1,5.4.0,5.4.1,5.4.2,5.13.0,5.12.0,5.11.2,5.11.1,5.10.0,5.9.0,5.8.2,5.8.1,5.7.2,5.7.1,5.7.0,5.6.3,5.5.0,5.4.2
+    # for the full list of 5.13.0 free icon classes
+    "icons": {
+        "records.student": "fas fa-file",
+        "advanced_filters.advancedfilter": "fas fa-filter",
+        "account.emailaddress": "fas fa-envelope",
+        "institutuff.institute": "fas fa-university",
+        "auth.User": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "sites.site": "fas fa-globe",
+
+    },
+    # Icons that are used when one is not manually specified
+    "default_icon_parents": "fas fa-chevron-circle-right",
+    "default_icon_children": "fas fa-circle",
+
+    "related_modal_active": False,
+
+    "use_google_fonts_cdn": True,
+    "show_ui_builder": False,
+
+    "changeform_format": "horizontal_tabs",
+    "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
+
 }
