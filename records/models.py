@@ -20,6 +20,7 @@ from .choices import GENDER_CHOICES, BE_PROGRAM_CHOICES, MSC_PROGRAM_CHOICES, BE
     ACADEMIC_LEVEL_CHOICES, ACADEMIC_STATUS_CHOICES, EMPLOYMENT_STATUS_CHOICES
 
 
+
 def get_sentinel_user():
     return get_user_model().objects.get_or_create(username='deleted')[0]
 
@@ -47,8 +48,8 @@ class Student(models.Model):
 
     user_account = models.OneToOneField(User,
         on_delete=models.SET(get_sentinel_user)
-        ,validators=[validate_group], 
-        null=True,blank=True,  
+        ,validators=[validate_group],
+        null=True,blank=True,
         related_name="student_user"
     )
 
@@ -175,7 +176,7 @@ class Student(models.Model):
     def absolute_url(self):
         return self.get_absolute_url()
 
-    
+
 
     def get_absolute_url(self):
         dob_bs = '20YYMMDD'
@@ -254,8 +255,8 @@ class Address(models.Model):
     city = models.CharField(max_length=50, blank=True, null=True)
     vdc_municipality = models.CharField(max_length=50, blank=True, null=True)
     ward_no = models.IntegerField(blank=True, null=True)
-    street_address = models.CharField(max_length=100, blank=True, null=True)	
-    
+    street_address = models.CharField(max_length=100, blank=True, null=True)
+
     def clean(self):
         attributes_to_change_to_none_if_empty = [
             'state', 'district', 'city', 'vdc_municipality', 'ward_no','street_address',

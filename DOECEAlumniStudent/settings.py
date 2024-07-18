@@ -182,6 +182,7 @@ if DEBUG=='True': #local
     }
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
+    DEBUG = False
     DATABASES = {
         'default': dj_database_url.config(        # Replace this value with your local database's connection string.
             default=DATABASE_URL,

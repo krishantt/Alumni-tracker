@@ -54,9 +54,9 @@ class StudentFilter(django_filters.FilterSet):
             return queryset.filter(
                     Q(phd_roll_number__isnull=False)
                 )
-        else : 
+        else :
             return Student.objects.none()
-        
+
     #is this check_country efficient?
     def check_country(self, queryset, name, value):
         dict_req = dict(countries)
@@ -69,7 +69,7 @@ class StudentFilter(django_filters.FilterSet):
                                 .filter(country__iexact=code).select_related('student')
         if not qset.exists():
             return Student.objects.none()
-        list_stdnt = [a.student.id for a in qset] 
+        list_stdnt = [a.student.id for a in qset]
         #raise ValidationError(list_stdnt)
         return Student.objects.filter(id__in=list_stdnt)
 
@@ -90,21 +90,21 @@ class StudentFilter(django_filters.FilterSet):
 
         #(F,M)1,L,(FM)2,FL,ML,FML
 
-        query_0 = Q(first_name__iexact=name_words[0]) 
+        query_0 = Q(first_name__iexact=name_words[0])
 
         query = Q()
         if len_name_words==1:
             #F,M
-            query = query_0 |Q(middle_name__iexact=name_words[0]) 
-        
+            query = query_0 |Q(middle_name__iexact=name_words[0])
+
         last_name_possibly_L=name_words
         ##last_name_possibly = "".join([ s+" " for s in name_words ]).rstrip()
         #L
-        query = query | self.Q_check_list_in_field(last_name_possibly_L)#Q(last_name__icontains=last_name_possibly) 
+        query = query | self.Q_check_list_in_field(last_name_possibly_L)#Q(last_name__icontains=last_name_possibly)
         if len_name_words>1:
-            if len_name_words==2: 
+            if len_name_words==2:
                 #FM
-                query = query | ( query_0 & Q(middle_name__iexact=name_words[1]) ) 
+                query = query | ( query_0 & Q(middle_name__iexact=name_words[1]) )
             first = last_name_possibly_L.pop(0)
             ##first, last_name_possibly = last_name_possibly.split(" ",1)
             #FL
@@ -120,16 +120,15 @@ class StudentFilter(django_filters.FilterSet):
                 query = query | \
                             ( Q(first_name__iexact=first) & Q(middle_name__iexact=middle) & self.Q_check_list_in_field(last_name_possibly_L) )#Q(last_name__icontains=last_name_possibly)  )
         return queryset.filter(query)
-    
+
         #print(query)
     def check_university(self, queryset,name,value):
         qset = FurtherAcademicStatus.objects.filter(id__in = queryset.values('has_further_academic_statuses__id') )\
                             .filter(institution__iexact=value).select_related('student')
         list_stndt = [a.student.id for a in qset]
         return(Student.objects.filter(id__in = list_stndt))
-    
+
 
     class Meta:
         model=Student
         fields=['batch','program']
-

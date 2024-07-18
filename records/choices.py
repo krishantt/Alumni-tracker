@@ -82,4 +82,3 @@ EMPLOYMENT_STATUS_CHOICES = (
     ("Employed", "Employed"),
     ("Unemployed", "Unemployed"),
 )
-

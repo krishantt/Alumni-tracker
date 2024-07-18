@@ -40,8 +40,8 @@ class Institute(models.Model):
 
     userName = models.OneToOneField(User,
         on_delete=models.SET(sentinel.get_sentinel_user)
-        ,validators=[validate_group], 
-        blank=False, null=False, 
+        ,validators=[validate_group],
+        blank=False, null=False,
         related_name="institute"
     )
 
@@ -56,17 +56,17 @@ class Institute(models.Model):
     )
 
     position_in_institution = models.CharField(
-        blank=True, 
-        null=True, 
+        blank=True,
+        null=True,
         max_length=100
     )
     date_of_enrollment = models.CharField(
-        max_length=10, 
+        max_length=10,
         validators=[
-            RegexValidator(r'^20[0-9][0-9]/[0-9]{2}/[0-9]{2}$'), 
+            RegexValidator(r'^20[0-9][0-9]/[0-9]{2}/[0-9]{2}$'),
             MaxLengthValidator(10), MinLengthValidator(10)
-        ], 
-        blank=True, 
+        ],
+        blank=True,
         null=True
     )
 
