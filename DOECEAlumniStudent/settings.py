@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
+    "import_export",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
