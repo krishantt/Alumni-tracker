@@ -1,7 +1,7 @@
 from django import forms
 from records.forms import AlumniForm
 
-student_basic_info_fields=[ 
+student_basic_info_fields=[
     #'title',
     'first_name',
     'middle_name',
@@ -16,7 +16,7 @@ student_basic_info_fields=[
 basic_info_opt=[
         'dob_bs','gender'
     ]
-    
+
 contact_info=[
         'contact_number','email','website','facebook_id','twitter_id','linked_in_id',
     ]
@@ -45,7 +45,7 @@ further_academic_status_fields=[
 
 class campus_education_form(forms.ModelForm):
     pass
-    
+
 
 
 
@@ -63,8 +63,8 @@ def merge_student_entries(std1, std2):
     for key in student_education_fields:
         key2 = 'be'+key
         if std1_form[key2] is None:
-            pass 
-        elif std2_form[key2] is None: 
+            pass
+        elhttp://alumni-tracker.bct.itclub.pp.ua/if std2_form[key2] is None:
            pass
         elif not std1_form[key2] == std2_form[key2]:
             flag=False
@@ -73,8 +73,8 @@ def merge_student_entries(std1, std2):
     for key in student_education_fields[1:]:
         key2 = 'msc'+key
         if std1_form[key2] is None:
-            pass 
-        elif std2_form[key2] is None: 
+            pass
+        elif std2_form[key2] is None:
            pass
         elif not std1_form[key2] == std2_form[key2]:
             flag=False
@@ -83,14 +83,14 @@ def merge_student_entries(std1, std2):
     for key in student_education_fields[-3:]:
         key2 = 'phd'+key
         if std1_form[key2] is None:
-            pass 
-        elif std2_form[key2] is None: 
+            pass
+        elif std2_form[key2] is None:
            pass
         elif not std1_form[key2] == std2_form[key2]:
             flag=False
 
     #
-            
+
 
 
     pass
