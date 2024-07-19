@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG')
+PRODUCTION = os.environ.get('PRODUCTION')
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 ALLOWED_HOSTS = [
@@ -173,15 +173,10 @@ DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 #RENDER SPECIFIC
 
-if DEBUG=='True': #local
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-else:
+
+    # DEBUG = False
+    # DATABASES = {
+if PRODUCTION == 'True':
     DEBUG = False
     DATABASES = {
         'default': dj_database_url.config(        # Replace this value with your local database's connection string.
@@ -195,7 +190,15 @@ else:
     EMAIL_PORT = os.environ.get('EMAIL_PORT')
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-
+else:
+    DEBUG = True
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #END RENDER
 
 
