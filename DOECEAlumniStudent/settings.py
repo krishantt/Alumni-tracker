@@ -177,7 +177,7 @@ DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
     # DEBUG = False
     # DATABASES = {
 if PRODUCTION == 'True':
-    DEBUG = False
+    # DEBUG = False
     DATABASES = {
         'default': dj_database_url.config(        # Replace this value with your local database's connection string.
             default=DATABASE_URL,
