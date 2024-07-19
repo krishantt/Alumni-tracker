@@ -30,7 +30,8 @@ PRODUCTION = os.environ.get('PRODUCTION')
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 ALLOWED_HOSTS = [
-    '*',
+    '127.0.0.1',
+    'alumni-tracker.bct.itclub.pp.ua',
 ]
 
 
@@ -177,7 +178,7 @@ DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
     # DEBUG = False
     # DATABASES = {
 if PRODUCTION == 'True':
-    # DEBUG = False
+    DEBUG = False
     DATABASES = {
         'default': dj_database_url.config(        # Replace this value with your local database's connection string.
             default=DATABASE_URL,
@@ -224,7 +225,7 @@ else:
 
 # DEVELOPMENT START
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = BASE_DIR + "/static"
 STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -296,4 +297,23 @@ JAZZMIN_SETTINGS = {
     "changeform_format": "horizontal_tabs",
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
 
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": "./debug.log",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+    },
 }
