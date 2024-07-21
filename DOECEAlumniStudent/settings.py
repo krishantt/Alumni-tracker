@@ -31,6 +31,7 @@ DATABASE_URL = os.environ.get('DATABASE_URL')
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
+    '0.0.0.0',
     'alumni-tracker.bct.itclub.pp.ua',
 ]
 
