@@ -180,7 +180,7 @@ DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
     # DEBUG = False
     # DATABASES = {
 if PRODUCTION == 'True':
-    DEBUG = False
+    DEBUG = True
     DATABASES = {
         'default': dj_database_url.config(        # Replace this value with your local database's connection string.
             default=DATABASE_URL,
@@ -194,7 +194,7 @@ if PRODUCTION == 'True':
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 else:
-    DEBUG = False
+    DEBUG = True
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
