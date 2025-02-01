@@ -35,7 +35,7 @@ ALLOWED_HOSTS = [
     'localhost',
     'alumni-tracker.bct.itclub.pp.ua',
 ]
-
+CSRF_TRUSTED_ORIGINS = ['https://alumni-tracker.bct.itclub.pp.ua']
 
 # Application definition
 
